@@ -1,0 +1,53 @@
+@model ECommerceMini.Models.Product
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit Product";
+    var categories = ViewBag.Categories as List<ECommerceMini.Models.Category>;
+}
+
+<h2>Edit Product</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <div class="mb-3">
+            <label class="form-label">Current Image</label><br />
+            <img src="@Model.ImageUrl" alt="Current Image" style="max-height:150px;" />
+        </div>
+    }
+
+    <div class="mb-3">
+        <label class="form-label">Change Product Image</label>
+        <input type="file" name="ImageFile" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Category</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(categories, "Id", "Name"))"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var isAuthenticated = User?.Identity?.IsAuthenticated ?? false;
+    var userName = User?.Identity?.Name ?? "User";
+}
+<div class="container mt-5 text-center">
+    <div class="bg-light p-5 rounded-3 shadow-sm">
+        <h1 class="display-5">Welcome to <span class="text-primary">E-Commerce Mini</span></h1>
+        <p class="lead mt-3">Your one-stop shop for electronics, fashion, furniture, and more.</p>
+
+        @if (!isAuthenticated)
+        {
+            <p class="mt-4">
+                <a class="btn btn-primary btn-lg me-2" asp-controller="Account" asp-action="Login">Login</a>
+                <a class="btn btn-outline-secondary btn-lg" asp-controller="Account" asp-action="Register">Register</a>
+            </p>
+        }
+        else
+        {
+            <p class="mt-4">
+                Hello, <strong>@userName</strong>! Ready to explore?
+            </p>
+            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary btn-lg">Go to Products</a>
+        }
+    </div>
+</div>

@@ -1,0 +1,44 @@
+@model ECommerceMini.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+<div class="container mt-4">
+    <h2 class="mb-4">Checkout</h2>
+    <form asp-action="Index" method="post">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <h5>Order Summary</h5>
+        <ul class="list-group mb-3">
+            @foreach (var item in Model.CartItems)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <div>@item.Name (x@item.Quantity)</div>
+                    <span>@item.Total.ToString("C")</span>
+                </li>
+            }
+            <li class="list-group-item d-flex justify-content-between">
+                <strong>Total</strong>
+                <strong>@Model.TotalAmount.ToString("C")</strong>
+            </li>
+        </ul>
+
+        <button type="submit" class="btn btn-primary btn-lg">Place Order</button>
+    </form>
+</div>

@@ -1,0 +1,41 @@
+@model IEnumerable<ECommerceMini.Models.Order>
+@{
+    ViewData["Title"] = "Manage Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">🧾 Manage Orders</h4>
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Order #</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var o in Model)
+                    {
+                        <tr>
+                            <td>@o.Id</td>
+                            <td>@o.CustomerEmail</td>
+                            <td>@o.OrderDate.ToString("yyyy-MM-dd")</td>
+                            <td>₹@o.TotalAmount.ToString("0.00")</td>
+                            <td class="text-end">
+                                <a asp-action="Details" asp-route-id="@o.Id" class="btn btn-sm btn-outline-primary">🔍 View</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

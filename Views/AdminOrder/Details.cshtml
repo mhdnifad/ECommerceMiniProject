@@ -1,0 +1,55 @@
+@model ECommerceMini.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">🧾 Order Details</h4>
+            <span class="badge bg-light text-dark">Order ID: @Model.Id</span>
+        </div>
+
+        <div class="card-body">
+            <dl class="row mb-3">
+                <dt class="col-sm-3">Customer Email:</dt>
+                <dd class="col-sm-9">@Model.CustomerEmail</dd>
+
+                <dt class="col-sm-3">Order Date:</dt>
+                <dd class="col-sm-9">@Model.OrderDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                <dt class="col-sm-3">Total Amount:</dt>
+                <dd class="col-sm-9">₹@(Model.TotalAmount.ToString("0.00"))</dd>
+  </dl>
+
+            <h5 class="mt-4">📦 Items</h5>
+            <table class="table table-bordered table-hover mt-2">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Product?.Name</td>
+                            <td>₹@item.Price.ToString("0.00")</td>
+                            <td>@item.Quantity</td>
+                            <td>₹@(item.Price * item.Quantity)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-end mt-3">
+                <a asp-action="Index" class="btn btn-outline-secondary">⬅ Back to Orders</a>
+            </div>
+        </div>
+    </div>
+</div>

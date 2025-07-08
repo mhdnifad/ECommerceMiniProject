@@ -1,0 +1,43 @@
+@model IEnumerable<ECommerceMini.Models.Product>
+@{
+    ViewData["Title"] = "Manage Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">📦 Manage Products</h4>
+            <a asp-action="Create" class="btn btn-light btn-sm">➕ Add Product</a>
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        <tr>
+                            <td><img src="@p.ImageUrl" width="60" height="60" style="object-fit:contain;" class="rounded" /></td>
+                            <td>@p.Name</td>
+                            <td>@p.Category?.Name</td>
+                            <td>₹@p.Price.ToString("0.00")</td>
+                            <td class="text-end">
+                                <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-sm btn-outline-warning me-2">✏️</a>
+                                <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-sm btn-outline-danger">🗑️</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
