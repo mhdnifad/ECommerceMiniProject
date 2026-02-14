@@ -16,7 +16,6 @@ namespace ECommerceMini.ViewModels
         public string Password { get; set; } = string.Empty;
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
